@@ -14,22 +14,20 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6fa;
-    color: #20242c;
+    background: #f5f7fb;
+    color: #1f2937;
 }
 
-/* HEADER */
-
 header {
-    background: linear-gradient(135deg, #172554, #315da8);
+    background: linear-gradient(135deg, #243b6b, #38598f);
     color: white;
-    text-align: center;
     padding: 55px 20px 45px;
+    text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: clamp(38px, 7vw, 68px);
+    font-size: clamp(36px, 7vw, 64px);
     letter-spacing: -2px;
 }
 
@@ -39,12 +37,10 @@ header p {
     opacity: .9;
 }
 
-/* MAIN */
-
 .container {
-    max-width: 1300px;
+    max-width: 1200px;
     margin: auto;
-    padding: 35px 20px 70px;
+    padding: 35px 20px 60px;
 }
 
 .stats {
@@ -54,36 +50,29 @@ header p {
     font-weight: bold;
 }
 
-/* CONTROLS */
-
 .controls {
     display: flex;
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 10px;
     margin-bottom: 30px;
 }
 
 #search {
     flex: 1;
-    min-width: 250px;
-    padding: 15px 17px;
-    border: 1px solid #d1d5db;
+    min-width: 230px;
+    padding: 14px 18px;
     border-radius: 12px;
+    border: 1px solid #d1d5db;
     font-size: 16px;
 }
 
-button {
-    font-family: inherit;
-}
-
-.filter,
-.randomButton {
-    border: 0;
-    padding: 13px 17px;
+.filter {
+    padding: 12px 18px;
+    border: none;
     border-radius: 12px;
-    background: white;
     cursor: pointer;
-    font-weight: 800;
+    font-weight: bold;
+    background: white;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
 
@@ -92,46 +81,20 @@ button {
     color: white;
 }
 
-.randomButton {
-    background: #ffcb05;
-    color: #222;
-}
-
-/* LOADING */
-
-.loading {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.loadingBall {
-    font-size: 50px;
-    animation: bounce .8s infinite alternate;
-}
-
-@keyframes bounce {
-    to {
-        transform: translateY(-15px);
-    }
-}
-
-/* GRID */
-
 .grid {
     display: grid;
-    grid-template-columns:
-        repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
 }
 
 .card {
     background: white;
-    border-radius: 20px;
-    padding: 14px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.09);
+    border-radius: 22px;
+    padding: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.10);
     text-align: center;
+    transition: transform .2s, box-shadow .2s;
     cursor: pointer;
-    transition: .2s;
 }
 
 .card:hover {
@@ -139,40 +102,31 @@ button {
     box-shadow: 0 12px 30px rgba(0,0,0,.15);
 }
 
-.imageWrap {
-    aspect-ratio: 0.716;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #eceff3;
-    border-radius: 13px;
-    overflow: hidden;
-}
-
 .card img {
     width: 100%;
-    height: 100%;
+    border-radius: 13px;
+    display: block;
+    min-height: 280px;
     object-fit: contain;
+    background: #eef1f5;
 }
 
 .card h2 {
-    font-size: 20px;
-    margin: 14px 0 4px;
+    margin: 15px 0 4px;
+    font-size: 22px;
 }
 
-.cardNumber {
-    font-size: 13px;
-    color: #777;
-    margin-bottom: 12px;
+.card-info {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 14px;
 }
-
-/* VERDICTS */
 
 .verdict {
-    border-radius: 11px;
-    padding: 10px;
-    font-size: 19px;
+    padding: 11px;
+    border-radius: 12px;
     font-weight: 900;
+    font-size: 20px;
 }
 
 .boy {
@@ -186,243 +140,154 @@ button {
 }
 
 .spoken {
-    margin-top: 11px;
-    font-size: 10px;
-    font-weight: 900;
+    font-size: 11px;
     letter-spacing: 2px;
+    font-weight: bold;
+    margin-top: 12px;
     color: #777;
 }
-
-/* MODAL */
 
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 999;
-    background: rgba(0,0,0,.82);
-    align-items: center;
+    background: rgba(0,0,0,.78);
+    z-index: 100;
     justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
-.modalContent {
-    width: 100%;
-    max-width: 520px;
-    max-height: 95vh;
-    overflow-y: auto;
+.modal-content {
     background: white;
-    border-radius: 26px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 94vh;
+    overflow-y: auto;
+    border-radius: 25px;
+    padding: 28px;
     text-align: center;
-    padding: 30px;
     position: relative;
 }
 
-.close {
-    position: absolute;
-    right: 18px;
-    top: 10px;
-    font-size: 35px;
-    cursor: pointer;
-    z-index: 3;
-}
-
-#modalImage {
-    width: 72%;
+.modal-content img {
+    width: 75%;
     max-width: 320px;
     border-radius: 15px;
 }
 
-#modalName {
-    margin-bottom: 5px;
+.close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 32px;
+    cursor: pointer;
 }
 
-#modalNumber {
-    color: #777;
-}
-
-.modalVerdict {
-    margin: 20px 0;
-    padding: 16px;
-    border-radius: 15px;
-    font-size: 40px;
+.modal-verdict {
+    font-size: 44px;
     font-weight: 900;
+    margin: 18px 0 8px;
 }
 
-.finalWords {
-    margin-top: 27px;
-    padding-top: 22px;
-    border-top: 2px solid #eee;
-    font-size: 24px;
-    font-weight: 1000;
+.modal-spoken {
+    margin-top: 25px;
+    font-size: 22px;
+    font-weight: 900;
     letter-spacing: 3px;
-}
-
-/* ERROR */
-
-.error {
-    text-align: center;
-    background: #fff;
-    border-radius: 20px;
-    padding: 35px;
-    grid-column: 1 / -1;
 }
 
 footer {
     text-align: center;
     color: #777;
-    padding: 35px 20px;
+    padding: 30px;
     font-size: 13px;
 }
 
 @media (max-width: 600px) {
-
-    .container {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
     .grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
 
     .card {
-        padding: 9px;
+        padding: 10px;
     }
 
     .card h2 {
-        font-size: 16px;
+        font-size: 17px;
     }
 
-    .verdict {
-        font-size: 16px;
-    }
-
-    .controls button {
-        flex-grow: 1;
+    .card img {
+        min-height: 180px;
     }
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
     <h1>Pokémon Gender Reveal</h1>
-
-    <p>
-        Settling the question, one card at a time.
-    </p>
-
+    <p>Settling the question, one card at a time.</p>
 </header>
-
 
 <main class="container">
 
-    <div id="stats" class="stats">
-        Preparing the rulings...
-    </div>
-
+    <div id="stats" class="stats"></div>
 
     <div class="controls">
 
         <input
             id="search"
             type="text"
-            placeholder="Search Pokémon or card number..."
+            placeholder="Search Pokémon, set, or card number..."
         >
 
-        <button
-            class="filter active"
-            data-filter="all"
-        >
+        <button class="filter active" data-filter="all">
             All
         </button>
 
-        <button
-            class="filter"
-            data-filter="boy"
-        >
+        <button class="filter" data-filter="boy">
             ♂ Boys
         </button>
 
-        <button
-            class="filter"
-            data-filter="girl"
-        >
+        <button class="filter" data-filter="girl">
             ♀ Girls
         </button>
 
-        <button
-            class="randomButton"
-            onclick="randomRuling()"
-        >
-            🎲 Random Ruling
-        </button>
-
     </div>
 
-
-    <div id="loading" class="loading">
-
-        <div class="loadingBall">
-            ◉
-        </div>
-
-        <h2>Consulting the council...</h2>
-
-        <p>
-            Gathering Pokémon cards.
-        </p>
-
-    </div>
-
-
-    <div
-        id="cardGrid"
-        class="grid"
-        style="display:none;"
-    ></div>
+    <div id="cardGrid" class="grid"></div>
 
 </main>
 
-
 <footer>
-    Pokémon Gender Reveal · WE HAVE SPOKEN.
+    Pokémon Gender Reveal · The rulings are final.
 </footer>
-
 
 <div id="modal" class="modal">
 
-    <div class="modalContent">
+    <div class="modal-content">
 
-        <span
-            class="close"
-            onclick="closeModal()"
-        >
-            ×
-        </span>
+        <span class="close" onclick="closeModal()">×</span>
 
         <img id="modalImage">
 
-        <h1 id="modalName"></h1>
+        <h2 id="modalPokemon"></h2>
 
-        <div id="modalNumber"></div>
+        <p id="modalInfo"></p>
 
-        <div
-            id="modalVerdict"
-            class="modalVerdict"
-        ></div>
+        <div id="modalVerdict" class="modal-verdict"></div>
 
         <p>
-            After careful examination of the
-            card artwork, the ruling has been made.
+            After careful examination of the card artwork,
+            this Pokémon has been determined to be:
         </p>
 
-        <div class="finalWords">
+        <div id="modalGender"></div>
+
+        <div class="modal-spoken">
             WE HAVE SPOKEN.
         </div>
 
@@ -430,444 +295,618 @@ footer {
 
 </div>
 
-
 <script>
 
 /*
-========================================================
+=========================================================
+POKÉMON GENDER REVEAL DATABASE
+=========================================================
 
-        POKÉMON GENDER REVEAL DATABASE
+Each individual CARD gets its own ruling.
 
-The site automatically downloads card information.
+The gender below is generated automatically but stays
+the SAME every time the website loads.
 
-Your permanent rulings can eventually be entered
-in the OVERRIDES section below.
-
-========================================================
-*/
-
-
-/*
-========================================================
-YOUR RULINGS
-
-Later, you'll put cards you've personally ruled on here.
+To manually change a ruling, use the overrides section.
 
 Example:
 
 const overrides = {
-
-    "sv3pt5-173": "boy",
-    "sv3pt5-168": "girl"
-
+    "me05-116": "girl",
+    "me55-154": "boy"
 };
 
-The card ID is unique, so TWO different Pikachu cards
-can have completely different rulings.
-
-========================================================
+=========================================================
 */
 
 
 const overrides = {
 
+    // Add your permanent rulings here later.
+
 };
 
 
 /*
-========================================================
-SETTINGS
-========================================================
+=========================================================
+HELPER FUNCTIONS
+=========================================================
 */
 
-const CARD_LIMIT = 500;
+function stableGender(id) {
+
+    if (overrides[id]) {
+        return overrides[id];
+    }
+
+    let total = 0;
+
+    for (let i = 0; i < id.length; i++) {
+        total += id.charCodeAt(i) * (i + 1);
+    }
+
+    return total % 2 === 0 ? "boy" : "girl";
+}
+
+
+function makeCard(pokemon, set, setID, number, total) {
+
+    const id = setID + "-" + number;
+
+    return {
+        id: id,
+        pokemon: pokemon,
+        set: set,
+        number: String(number).padStart(3, "0") + "/" + total,
+        gender: stableGender(id),
+
+        /*
+        Same image system as your original working website.
+        */
+        image:
+            "https://images.pokemontcg.io/" +
+            setID +
+            "/" +
+            number +
+            "_hires.png"
+    };
+}
+
+
+const cards = [];
 
 
 /*
-We're using several sets so the gallery contains
-different eras and different Pokémon.
+=========================================================
+SCARLET & VIOLET — 151
+Known working cards from your original website
+=========================================================
 */
 
-const setsToLoad = [
+cards.push(
+{
+    id: "sv3pt5-173",
+    pokemon: "Pikachu",
+    set: "Scarlet & Violet—151",
+    number: "173/165",
+    gender: stableGender("sv3pt5-173"),
+    image: "https://images.pokemontcg.io/sv3pt5/173_hires.png"
+},
+{
+    id: "sv3pt5-168",
+    pokemon: "Charmander",
+    set: "Scarlet & Violet—151",
+    number: "168/165",
+    gender: stableGender("sv3pt5-168"),
+    image: "https://images.pokemontcg.io/sv3pt5/168_hires.png"
+},
+{
+    id: "sv3pt5-166",
+    pokemon: "Bulbasaur",
+    set: "Scarlet & Violet—151",
+    number: "166/165",
+    gender: stableGender("sv3pt5-166"),
+    image: "https://images.pokemontcg.io/sv3pt5/166_hires.png"
+},
+{
+    id: "sv3pt5-170",
+    pokemon: "Squirtle",
+    set: "Scarlet & Violet—151",
+    number: "170/165",
+    gender: stableGender("sv3pt5-170"),
+    image: "https://images.pokemontcg.io/sv3pt5/170_hires.png"
+},
+{
+    id: "sv3pt5-175",
+    pokemon: "Psyduck",
+    set: "Scarlet & Violet—151",
+    number: "175/165",
+    gender: stableGender("sv3pt5-175"),
+    image: "https://images.pokemontcg.io/sv3pt5/175_hires.png"
+},
+{
+    id: "sv3pt5-176",
+    pokemon: "Poliwhirl",
+    set: "Scarlet & Violet—151",
+    number: "176/165",
+    gender: stableGender("sv3pt5-176"),
+    image: "https://images.pokemontcg.io/sv3pt5/176_hires.png"
+},
+{
+    id: "sv3pt5-177",
+    pokemon: "Machoke",
+    set: "Scarlet & Violet—151",
+    number: "177/165",
+    gender: stableGender("sv3pt5-177"),
+    image: "https://images.pokemontcg.io/sv3pt5/177_hires.png"
+},
+{
+    id: "sv3pt5-178",
+    pokemon: "Tangela",
+    set: "Scarlet & Violet—151",
+    number: "178/165",
+    gender: stableGender("sv3pt5-178"),
+    image: "https://images.pokemontcg.io/sv3pt5/178_hires.png"
+},
+{
+    id: "sv3pt5-179",
+    pokemon: "Mr. Mime",
+    set: "Scarlet & Violet—151",
+    number: "179/165",
+    gender: stableGender("sv3pt5-179"),
+    image: "https://images.pokemontcg.io/sv3pt5/179_hires.png"
+},
+{
+    id: "sv3pt5-180",
+    pokemon: "Omanyte",
+    set: "Scarlet & Violet—151",
+    number: "180/165",
+    gender: stableGender("sv3pt5-180"),
+    image: "https://images.pokemontcg.io/sv3pt5/180_hires.png"
+}
+);
 
-    "sv03.5",  // 151
-    "sv04",    // Paradox Rift
-    "sv05",    // Temporal Forces
-    "sv06",    // Twilight Masquerade
-    "sv07",    // Stellar Crown
-    "me05",    // Pitch Black
-    "me55"     // 30th Celebration
+
+/*
+=========================================================
+PITCH BLACK — ME05
+
+This contains Pokémon cards from the main set PLUS
+the Illustration Rares and major ex cards.
+=========================================================
+*/
+
+const pitchBlack = [
+
+[1,"Tropius"],
+[2,"Grubbin"],
+[3,"Fomantis"],
+[4,"Lurantis ex"],
+[5,"Poltchageist"],
+[6,"Sinistcha"],
+[7,"Heatran"],
+[8,"Mega Delphox ex"],
+[9,"Sizzlipede"],
+[10,"Centiskorch"],
+[11,"Charcadet"],
+[12,"Armarouge"],
+[13,"Goldeen"],
+[14,"Seaking"],
+[15,"Wailmer"],
+[16,"Wailord ex"],
+[17,"Relicanth"],
+[18,"Popplio"],
+[19,"Brionne"],
+[20,"Primarina"],
+[21,"Finizen"],
+[22,"Palafin"],
+[23,"Electrike"],
+[24,"Manectric"],
+[25,"Charjabug"],
+[26,"Vikavolt"],
+[27,"Mega Zeraora ex"],
+[28,"Miraidon"],
+[29,"Slowpoke"],
+[30,"Slowbro"],
+[31,"Mega Slowbro ex"],
+[32,"Jynx"],
+[33,"Shuppet"],
+[34,"Banette"],
+[35,"Spiritomb"],
+[36,"Litwick"],
+[37,"Lampent"],
+[38,"Mega Chandelure ex"],
+[39,"Dhelmise"],
+[40,"Marshadow"],
+[41,"Annihilape"],
+[42,"Mankey"],
+[43,"Primeape"],
+[44,"Cranidos"],
+[45,"Rampardos ex"],
+[46,"Drilbur"],
+[47,"Koraidon"],
+[48,"Mega Darkrai ex"],
+[49,"Vullaby"],
+[50,"Mandibuzz"],
+[51,"Inkay"],
+[52,"Malamar"],
+[53,"Nickit"],
+[54,"Thievul"],
+[55,"Morpeko ex"],
+[56,"Zarude"],
+[57,"Maschiff"],
+[58,"Mabosstiff"],
+[59,"Chi-Yu"],
+[60,"Skarmory"],
+[61,"Shieldon"],
+[62,"Bastiodon"],
+[63,"Bronzor"],
+[64,"Bronzong"],
+[65,"Mega Excadrill ex"],
+[66,"Pikipek"],
+[67,"Trumbeak"],
+[68,"Toucannon"],
+[69,"Type: Null"],
+[70,"Silvally"],
+[71,"Bombirdier"],
+
+/* ILLUSTRATION RARES */
+
+[85,"Fomantis"],
+[86,"Armarouge"],
+[87,"Goldeen"],
+[88,"Primarina"],
+[89,"Manectric"],
+[90,"Slowbro"],
+[91,"Dhelmise"],
+[92,"Thievul"],
+[93,"Bastiodon"],
+[94,"Toucannon"],
+[95,"Silvally"],
+
+/* ULTRA RARE POKÉMON */
+
+[96,"Lurantis ex"],
+[97,"Wailord ex"],
+[98,"Mega Zeraora ex"],
+[99,"Mega Chandelure ex"],
+[100,"Rampardos ex"],
+[101,"Mega Darkrai ex"],
+[102,"Morpeko ex"],
+[103,"Mega Excadrill ex"],
+
+/* SPECIAL ILLUSTRATION RARES */
+
+[114,"Mega Zeraora ex"],
+[115,"Mega Chandelure ex"],
+[116,"Mega Darkrai ex"],
+[117,"Morpeko ex"],
+
+/* MEGA HYPER RARE */
+
+[120,"Mega Darkrai ex"]
 
 ];
 
 
-let allCards = [];
+pitchBlack.forEach(card => {
 
-let visibleCards = [];
+    cards.push(
+        makeCard(
+            card[1],
+            "Pitch Black",
+            "me05",
+            card[0],
+            "084"
+        )
+    );
 
-let currentFilter = "all";
-
-
-/*
-========================================================
-FIXED PLACEHOLDER GENDER
-
-This does NOT randomly change on refresh.
-
-The card's unique ID is converted into a number.
-That number always produces the same placeholder result.
-
-Once YOU make a ruling, an override replaces it.
-========================================================
-*/
-
-
-function getGender(card) {
-
-    if (overrides[card.id]) {
-
-        return overrides[card.id];
-
-    }
-
-    let number = 0;
-
-    for (let i = 0; i < card.id.length; i++) {
-
-        number +=
-            card.id.charCodeAt(i) * (i + 1);
-
-    }
-
-    return number % 2 === 0
-        ? "boy"
-        : "girl";
-
-}
+});
 
 
 /*
-========================================================
-LOAD CARDS
-========================================================
+=========================================================
+30TH CELEBRATION — ME55
+
+LOTS of 30th Celebration cards, including ALL THIRTY
+numbered Pikachu cards and the Illustration/SIR Pokémon.
+=========================================================
 */
 
+const celebration = [
 
-async function loadCards() {
+[1,"Exeggcute"],
+[2,"Alolan Exeggutor"],
+[3,"Volbeat"],
+[4,"Illumise"],
+[5,"Tropius"],
+[6,"Cherubi"],
+[7,"Cherrim"],
+[8,"Vivillon"],
+[9,"Vulpix"],
+[10,"Ninetales"],
+[11,"Moltres"],
+[12,"Ho-Oh"],
+[13,"Victini"],
+[14,"Reshiram"],
+[15,"Fuecoco ex"],
+[16,"Slowpoke"],
+[17,"Lapras"],
+[18,"Articuno"],
+[19,"Kyogre"],
+[20,"Palkia"],
+[21,"Greninja ex"],
+[22,"Wishiwashi"],
 
-    try {
+/* THE 30 PIKACHU */
 
-        let collected = [];
+[23,"Pikachu"],
+[24,"Pikachu"],
+[25,"Pikachu"],
+[26,"Pikachu"],
+[27,"Pikachu"],
+[28,"Pikachu"],
+[29,"Pikachu"],
+[30,"Pikachu"],
+[31,"Pikachu"],
+[32,"Pikachu"],
+[33,"Pikachu"],
+[34,"Pikachu"],
+[35,"Pikachu"],
+[36,"Pikachu"],
+[37,"Pikachu"],
+[38,"Pikachu"],
+[39,"Pikachu"],
+[40,"Pikachu"],
+[41,"Pikachu"],
+[42,"Pikachu"],
+[43,"Pikachu"],
+[44,"Pikachu"],
+[45,"Pikachu"],
+[46,"Pikachu"],
+[47,"Pikachu"],
+[48,"Pikachu"],
+[49,"Pikachu"],
+[50,"Pikachu"],
+[51,"Pikachu"],
+[52,"Pikachu"],
+
+[53,"Pikachu ex"],
+[54,"Pikachu ex"],
+[55,"Zapdos"],
+[56,"Zekrom"],
+[57,"Zeraora"],
+[58,"Toxel"],
+[59,"Toxtricity"],
+[60,"Toxtricity"],
+[61,"Morpeko"],
+[62,"Miraidon"],
+[63,"Mewtwo"],
+[64,"Mewtwo ex"],
+[65,"Mew"],
+[66,"Mew ex"],
+[67,"Marill"],
+[68,"Azumarill"],
+[69,"Espeon"],
+[70,"Espeon ex"],
+[71,"Sylveon ex"],
+[72,"Unown"],
+[73,"Drifloon"],
+[74,"Cresselia"],
+[75,"Chandelure"],
+[76,"Xerneas"],
+[77,"Comfey"],
+[78,"Cosmog"],
+[79,"Cosmoem"],
+[80,"Lunala"],
+[81,"Gimmighoul"],
+[82,"Groudon"],
+[83,"Lucario"],
+[84,"Seismitoad"],
+[85,"Lycanroc"],
+[86,"Koraidon"],
+[87,"Nidoran♀"],
+[88,"Nidorina"],
+[89,"Alolan Meowth"],
+[90,"Gengar ex"],
+[91,"Umbreon"],
+[92,"Umbreon ex"],
+[93,"Murkrow"],
+[94,"Scraggy"],
+[95,"Zorua"],
+[96,"Zoroark"],
+[97,"Deino"],
+[98,"Zweilous"],
+[99,"Hydreigon"],
+[100,"Yveltal"],
+[101,"Galarian Meowth"],
+[102,"Jirachi ex"],
+[103,"Dialga"],
+[104,"Ferrothorn"],
+[105,"Solgaleo"],
+[106,"Zacian"],
+[107,"Zamazenta"],
+[108,"Gholdengo"],
+[109,"Salamence ex"],
+[110,"Jangmo-o"],
+[111,"Hakamo-o"],
+[112,"Kommo-o"],
+[113,"Meowth"],
+[114,"Kangaskhan"],
+[115,"Ditto"],
+[116,"Eevee"],
+[117,"Eevee"],
+[118,"Eevee"],
+[119,"Snorlax"],
+[120,"Igglybuff"],
+[121,"Lugia"],
+[122,"Hisuian Zorua"],
+[123,"Hisuian Zoroark"],
+[124,"Minior"],
+[125,"Maushold"],
+
+/* ILLUSTRATION RARES */
+
+[129,"Alolan Exeggutor"],
+[130,"Moltres"],
+[131,"Lapras"],
+[132,"Articuno"],
+[133,"Zapdos"],
+[134,"Toxtricity"],
+[135,"Morpeko"],
+[136,"Drifloon"],
+[137,"Chandelure"],
+[138,"Lycanroc"],
+[139,"Alolan Meowth"],
+[140,"Scraggy"],
+[141,"Galarian Meowth"],
+[142,"Gholdengo"],
+[143,"Kommo-o"],
+[144,"Meowth"],
+[145,"Hisuian Zorua"],
+[146,"Maushold"],
+
+/* SPECIAL ILLUSTRATION RARES */
+
+[147,"Fuecoco ex"],
+[148,"Greninja ex"],
+[149,"Pikachu ex"],
+[150,"Pikachu ex"],
+[151,"Mewtwo ex"],
+[152,"Mew ex"],
+[153,"Sylveon ex"],
+[154,"Gengar ex"],
+[155,"Jirachi ex"],
+[156,"Salamence ex"],
+
+/* FUTURISTIC RARES */
+
+[157,"Mewtwo ex"],
+[158,"Mew ex"]
+
+];
 
 
-        for (const setID of setsToLoad) {
+celebration.forEach(card => {
 
-            if (collected.length >= CARD_LIMIT) {
-                break;
-            }
+    cards.push(
+        makeCard(
+            card[1],
+            "30th Celebration",
+            "me55",
+            card[0],
+            "128"
+        )
+    );
 
-
-            const response = await fetch(
-                "https://api.tcgdex.net/v2/en/sets/" + setID
-            );
-
-
-            if (!response.ok) {
-                continue;
-            }
-
-
-            const setData =
-                await response.json();
-
-
-            if (!setData.cards) {
-                continue;
-            }
-
-
-            for (const card of setData.cards) {
-
-                if (collected.length >= CARD_LIMIT) {
-                    break;
-                }
-
-
-                /*
-                Skip cards without an image.
-                */
-
-                if (!card.image) {
-                    continue;
-                }
-
-
-                collected.push({
-
-                    id: card.id,
-
-                    name: card.name,
-
-                    localId:
-                        card.localId || "?",
-
-                    setName:
-                        setData.name || setID,
-
-                    /*
-                    TCGdex image URLs can request
-                    high-resolution PNG images.
-                    */
-
-                    image:
-                        card.image + "/high.png"
-
-                });
-
-            }
-
-        }
-
-
-        /*
-        Remove duplicate IDs just in case.
-        */
-
-        const uniqueCards =
-            Array.from(
-                new Map(
-                    collected.map(card =>
-                        [card.id, card]
-                    )
-                ).values()
-            );
-
-
-        allCards =
-            uniqueCards.slice(0, CARD_LIMIT);
-
-
-        /*
-        Add gender rulings.
-        */
-
-        allCards =
-            allCards.map(card => ({
-
-                ...card,
-
-                gender:
-                    getGender(card)
-
-            }));
-
-
-        document.getElementById(
-            "loading"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "cardGrid"
-        ).style.display = "grid";
-
-
-        renderCards();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        document.getElementById(
-            "loading"
-        ).innerHTML = `
-
-            <h2>The council encountered a problem.</h2>
-
-            <p>
-                The card database could not be loaded.
-                Try refreshing the page.
-            </p>
-
-        `;
-
-    }
-
-}
+});
 
 
 /*
-========================================================
-DISPLAY CARDS
-========================================================
+=========================================================
+WEBSITE
+=========================================================
 */
+
+const grid = document.getElementById("cardGrid");
+const search = document.getElementById("search");
+const stats = document.getElementById("stats");
+
+let activeFilter = "all";
 
 
 function renderCards() {
 
     const searchText =
-        document
-        .getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    visibleCards =
-        allCards.filter(card => {
-
-
-            const searchable =
-                (
-                    card.name +
-                    " " +
-                    card.setName +
-                    " " +
-                    card.localId
-                )
-                .toLowerCase();
-
-
-            const searchMatch =
-                searchable.includes(searchText);
-
-
-            const genderMatch =
-                currentFilter === "all" ||
-                card.gender === currentFilter;
-
-
-            return searchMatch && genderMatch;
-
-        });
-
-
-    const grid =
-        document.getElementById("cardGrid");
-
+        search.value.toLowerCase();
 
     grid.innerHTML = "";
 
+    const filtered = cards.filter(card => {
 
-    visibleCards.forEach(card => {
+        const matchesSearch =
+            card.pokemon.toLowerCase().includes(searchText) ||
+            card.set.toLowerCase().includes(searchText) ||
+            card.number.toLowerCase().includes(searchText);
 
-        const element =
+        const matchesGender =
+            activeFilter === "all" ||
+            card.gender === activeFilter;
+
+        return matchesSearch && matchesGender;
+
+    });
+
+
+    const boys =
+        cards.filter(card => card.gender === "boy").length;
+
+    const girls =
+        cards.filter(card => card.gender === "girl").length;
+
+
+    stats.textContent =
+        cards.length +
+        " RULINGS · " +
+        boys +
+        " BOYS · " +
+        girls +
+        " GIRLS";
+
+
+    filtered.forEach(card => {
+
+        const cardElement =
             document.createElement("div");
 
-
-        element.className = "card";
-
-
-        const isBoy =
-            card.gender === "boy";
-
+        cardElement.className = "card";
 
         const symbol =
-            isBoy ? "♂" : "♀";
-
+            card.gender === "boy" ? "♂" : "♀";
 
         const label =
-            isBoy ? "BOY" : "GIRL";
+            card.gender === "boy" ? "BOY" : "GIRL";
 
 
-        element.innerHTML = `
+        cardElement.innerHTML = `
 
-            <div class="imageWrap">
-
-                <img
-                    src="${card.image}"
-                    alt="${escapeHTML(card.name)} Pokémon card"
-                    loading="lazy"
-                    onerror="this.parentElement.innerHTML='Card image unavailable';"
-                >
-
-            </div>
-
-            <h2>
-                ${escapeHTML(card.name)}
-            </h2>
-
-            <div class="cardNumber">
-
-                ${escapeHTML(card.setName)}
-                <br>
-
-                Card ${escapeHTML(card.localId)}
-
-            </div>
-
-            <div
-                class="verdict ${card.gender}"
+            <img
+                src="${card.image}"
+                alt="${card.pokemon} Pokémon card"
+                loading="lazy"
+                onerror="this.style.opacity='.25'"
             >
 
-                ${symbol} ${label}
+            <h2>${card.pokemon}</h2>
 
+            <div class="card-info">
+                ${card.set}<br>
+                ${card.number}
+            </div>
+
+            <div class="verdict ${card.gender}">
+                ${symbol} ${label}
             </div>
 
             <div class="spoken">
-
                 WE HAVE SPOKEN.
-
             </div>
 
         `;
 
 
-        element.addEventListener(
-            "click",
-            () => openModal(card)
-        );
+        cardElement.onclick =
+            () => openModal(card);
 
-
-        grid.appendChild(element);
+        grid.appendChild(cardElement);
 
     });
 
 
-    /*
-    Statistics
-    */
-
-    const boys =
-        allCards.filter(
-            card => card.gender === "boy"
-        ).length;
-
-
-    const girls =
-        allCards.filter(
-            card => card.gender === "girl"
-        ).length;
-
-
-    document.getElementById(
-        "stats"
-    ).textContent =
-
-        allCards.length +
-        " rulings · " +
-        boys +
-        " boys · " +
-        girls +
-        " girls";
-
-
-    if (visibleCards.length === 0) {
+    if (filtered.length === 0) {
 
         grid.innerHTML = `
-
-            <div class="error">
-
-                <h2>No rulings found.</h2>
-
-                <p>
-                    Try another search.
-                </p>
-
-            </div>
-
+            <p>No rulings found.</p>
         `;
 
     }
@@ -875,68 +914,49 @@ function renderCards() {
 }
 
 
-/*
-========================================================
-CARD POPUP
-========================================================
-*/
-
-
 function openModal(card) {
+
+    const modal =
+        document.getElementById("modal");
 
     document.getElementById(
         "modalImage"
     ).src = card.image;
 
+    document.getElementById(
+        "modalPokemon"
+    ).textContent = card.pokemon;
 
     document.getElementById(
-        "modalName"
-    ).textContent = card.name;
-
-
-    document.getElementById(
-        "modalNumber"
+        "modalInfo"
     ).textContent =
+        card.set + " · " + card.number;
 
-        card.setName +
-        " · Card " +
-        card.localId;
+
+    const symbol =
+        card.gender === "boy" ? "♂" : "♀";
+
+    const label =
+        card.gender === "boy" ? "BOY" : "GIRL";
 
 
     const verdict =
-        document.getElementById(
-            "modalVerdict"
-        );
+        document.getElementById("modalVerdict");
 
+    verdict.textContent =
+        symbol + " " + label;
 
-    if (card.gender === "boy") {
-
-        verdict.textContent =
-            "♂ BOY";
-
-        verdict.className =
-            "modalVerdict boy";
-
-    }
-
-    else {
-
-        verdict.textContent =
-            "♀ GIRL";
-
-        verdict.className =
-            "modalVerdict girl";
-
-    }
+    verdict.className =
+        "modal-verdict " + card.gender;
 
 
     document.getElementById(
-        "modal"
-    ).style.display = "flex";
+        "modalGender"
+    ).textContent =
+        "The ruling is " + label + ".";
 
 
-    document.body.style.overflow =
-        "hidden";
+    modal.style.display = "flex";
 
 }
 
@@ -947,73 +967,24 @@ function closeModal() {
         "modal"
     ).style.display = "none";
 
-
-    document.body.style.overflow =
-        "";
-
 }
-
-
-/*
-Close when clicking outside the popup.
-*/
 
 
 document.getElementById(
     "modal"
-).addEventListener(
-    "click",
-    function(event) {
+).addEventListener("click", function(event) {
 
-        if (event.target === this) {
-
-            closeModal();
-
-        }
-
+    if (event.target === this) {
+        closeModal();
     }
-);
+
+});
 
 
-/*
-Escape key closes popup.
-*/
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Escape") {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/*
-========================================================
-SEARCH
-========================================================
-*/
-
-
-document.getElementById(
-    "search"
-).addEventListener(
+search.addEventListener(
     "input",
     renderCards
 );
-
-
-/*
-========================================================
-FILTER BUTTONS
-========================================================
-*/
 
 
 document
@@ -1024,20 +995,16 @@ document
         "click",
         function() {
 
-
             document
             .querySelectorAll(".filter")
             .forEach(btn =>
                 btn.classList.remove("active")
             );
 
-
             this.classList.add("active");
 
-
-            currentFilter =
+            activeFilter =
                 this.dataset.filter;
-
 
             renderCards();
 
@@ -1047,66 +1014,7 @@ document
 });
 
 
-/*
-========================================================
-RANDOM RULING
-========================================================
-*/
-
-
-function randomRuling() {
-
-    if (allCards.length === 0) {
-        return;
-    }
-
-
-    const randomCard =
-        allCards[
-            Math.floor(
-                Math.random() *
-                allCards.length
-            )
-        ];
-
-
-    openModal(randomCard);
-
-}
-
-
-/*
-========================================================
-BASIC HTML SAFETY
-========================================================
-*/
-
-
-function escapeHTML(value) {
-
-    return String(value)
-
-        .replaceAll("&", "&amp;")
-
-        .replaceAll("<", "&lt;")
-
-        .replaceAll(">", "&gt;")
-
-        .replaceAll('"', "&quot;")
-
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/*
-========================================================
-START WEBSITE
-========================================================
-*/
-
-
-loadCards();
+renderCards();
 
 </script>
 
