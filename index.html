@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pokémon Gender Reveal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #dff3ff, #ffe4ef);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      color: #222;
+    }
+
+    .card {
+      background: white;
+      width: 100%;
+      max-width: 520px;
+      padding: 35px;
+      border-radius: 28px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.15);
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 38px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 14px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .find-button {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      background: #ffcb05;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    #pokemonArea {
+      display: none;
+    }
+
+    #pokemonImage {
+      width: 210px;
+      height: 210px;
+      object-fit: contain;
+    }
+
+    #pokemonName {
+      text-transform: capitalize;
+      font-size: 28px;
+      margin-top: 0;
+    }
+
+    .gender-options {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .gender {
+      flex: 1;
+      padding: 15px 5px;
+      border-radius: 12px;
+      background: #eee;
+      transition: .2s;
+    }
+
+    .gender:hover {
+      transform: translateY(-2px);
+    }
+
+    .gender.selected {
+      outline: 3px solid #333;
+    }
+
+    .male {
+      background: #bde3ff;
+    }
+
+    .female {
+      background: #ffc5dc;
+    }
+
+    .genderless {
+      background: #ddd;
+    }
+
+    .reveal-button {
+      width: 100%;
+      padding: 18px;
+      border-radius: 15px;
+      background: #ef5350;
+      color: white;
+      font-size: 21px;
+    }
+
+    #result {
+      display: none;
+    }
+
+    #resultImage {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+    }
+
+    #bigReveal {
+      font-size: 48px;
+      margin: 10px 0;
+    }
+
+    .again {
+      margin-top: 20px;
+      padding: 12px 22px;
+      border-radius: 10px;
+    }
+
+    .error {
+      color: #d32f2f;
+      min-height: 20px;
+    }
+
+    .sparkle {
+      position: fixed;
+      top: -20px;
+      font-size: 25px;
+      animation: fall 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card" id="mainCard">
+
+    <div id="formArea">
+
+      <h1>Pokémon Gender Reveal</h1>
+
+      <p class="subtitle">
+        The most important reveal in your Pokémon's life.
+      </p>
+
+      <input
+        id="pokemonInput"
+        placeholder="Enter a Pokémon (e.g. Pikachu)"
+      >
+
+      <button class="find-button" onclick="findPokemon()">
+        Find Pokémon
+      </button>
+
+      <div class="error" id="error"></div>
+
+      <div id="pokemonArea">
+
+        <img id="pokemonImage">
+
+        <h2 id="pokemonName"></h2>
+
+        <input
+          id="nickname"
+          placeholder="Nickname (optional)"
+        >
+
+        <p><strong>What's the big reveal?</strong></p>
+
+        <div class="gender-options">
+
+          <button
+            class="gender male"
+            onclick="chooseGender('Male', this)"
+          >
+            ♂ Male
+          </button>
+
+          <button
+            class="gender female"
+            onclick="chooseGender('Female', this)"
+          >
+            ♀ Female
+          </button>
+
+          <button
+            class="gender genderless"
+            onclick="chooseGender('Genderless', this)"
+          >
+            ✨ Genderless
+          </button>
+
+        </div>
+
+        <button class="reveal-button" onclick="reveal()">
+          🎉 REVEAL! 🎉
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="result">
+
+      <p>THE RESULTS ARE IN...</p>
+
+      <img id="resultImage">
+
+      <h1 id="bigReveal"></h1>
+
+      <h2 id="resultName"></h2>
+
+      <p id="certificate"></p>
+
+      <button class="again" onclick="location.reload()">
+        Reveal Another Pokémon
+      </button>
+
+    </div>
+
+  </div>
+
+
+<script>
+
+let currentPokemon = null;
+let selectedGender = null;
+
+
+async function findPokemon() {
+
+  const input =
+    document.getElementById("pokemonInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+  const error =
+    document.getElementById("error");
+
+  error.textContent = "";
+
+  if (!input) {
+    error.textContent = "Enter a Pokémon first!";
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        "https://pokeapi.co/api/v2/pokemon/" + input
+      );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const pokemon =
+      await response.json();
+
+    currentPokemon = pokemon;
+
+    const artwork =
+      pokemon.sprites.other[
+        "official-artwork"
+      ].front_default;
+
+    document.getElementById(
+      "pokemonImage"
+    ).src = artwork;
+
+    document.getElementById(
+      "pokemonName"
+    ).textContent =
+      pokemon.name +
+      " · #" +
+      pokemon.id;
+
+    document.getElementById(
+      "pokemonArea"
+    ).style.display = "block";
+
+  }
+
+  catch {
+
+    error.textContent =
+      "Hmm... I couldn't find that Pokémon.";
+
+  }
+}
+
+
+function chooseGender(gender, button) {
+
+  selectedGender = gender;
+
+  document
+    .querySelectorAll(".gender")
+    .forEach(btn =>
+      btn.classList.remove("selected")
+    );
+
+  button.classList.add("selected");
+
+}
+
+
+function reveal() {
+
+  if (!currentPokemon) return;
+
+  if (!selectedGender) {
+    alert("Choose a gender first!");
+    return;
+  }
+
+  const nickname =
+    document.getElementById("nickname")
+    .value
+    .trim();
+
+  const displayName =
+    nickname || capitalize(currentPokemon.name);
+
+  const artwork =
+    currentPokemon.sprites.other[
+      "official-artwork"
+    ].front_default;
+
+  document.getElementById(
+    "formArea"
+  ).style.display = "none";
+
+  document.getElementById(
+    "result"
+  ).style.display = "block";
+
+  document.getElementById(
+    "resultImage"
+  ).src = artwork;
+
+
+  let revealText = "";
+
+  if (selectedGender === "Male") {
+    revealText = "IT'S A BOY! 💙";
+    document.body.style.background =
+      "linear-gradient(135deg,#8fd3ff,#dff5ff)";
+  }
+
+  else if (selectedGender === "Female") {
+    revealText = "IT'S A GIRL! 💗";
+    document.body.style.background =
+      "linear-gradient(135deg,#ff9fc5,#ffe3ef)";
+  }
+
+  else {
+    revealText = "GENDERLESS! ✨";
+    document.body.style.background =
+      "linear-gradient(135deg,#ddd,#fff)";
+  }
+
+
+  document.getElementById(
+    "bigReveal"
+  ).textContent = revealText;
+
+  document.getElementById(
+    "resultName"
+  ).textContent =
+    displayName +
+    " the " +
+    capitalize(currentPokemon.name);
+
+  const today =
+    new Date().toLocaleDateString(
+      undefined,
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }
+    );
+
+  document.getElementById(
+    "certificate"
+  ).textContent =
+    "This officially certifies that " +
+    displayName +
+    " has been revealed as " +
+    selectedGender +
+    " on " +
+    today +
+    ".";
+
+  confetti();
+
+}
+
+
+function capitalize(word) {
+
+  return word.charAt(0).toUpperCase()
+       + word.slice(1);
+
+}
+
+
+function confetti() {
+
+  const symbols =
+    ["🎉","✨","⭐","🎊","💙","💗"];
+
+  for (let i = 0; i < 80; i++) {
+
+    const piece =
+      document.createElement("div");
+
+    piece.className = "sparkle";
+
+    piece.textContent =
+      symbols[
+        Math.floor(
+          Math.random() * symbols.length
+        )
+      ];
+
+    piece.style.left =
+      Math.random() * 100 + "vw";
+
+    piece.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+    document.body.appendChild(piece);
+
+    setTimeout(
+      () => piece.remove(),
+      4500
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
